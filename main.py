@@ -32,19 +32,25 @@ def find_cheap_forza():
 
         sorted_offers = sorted(offers, key=lambda d: d['price'])
 
-        if sorted_offers[0]['price'] < 300:
-            return f'''fh5 premium w dobrej cenie:
+        if sorted_offers[0]['price'] < 330:
+            return f'''\
+fh5 premium w dobrej cenie:
 {sorted_offers[0]["name"]}
 {sorted_offers[0]["price"]}
 {sorted_offers[0]["shop"]}
 {sorted_offers[0]["href"]}'''
         else:
-            sleep(60)
-            pass
+            return None
 
     else:
         return f'error: {response.status_code}'
 
 
 while True:
-    print(find_cheap_forza())
+    result = find_cheap_forza()
+    if result is None:
+        sleep(60)
+        continue
+    else:
+        print(result)
+        sleep(1800)
